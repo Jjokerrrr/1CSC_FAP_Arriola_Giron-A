@@ -38,8 +38,9 @@ public class ListOfRecords implements ActionListener{
         buttRemRecord = new JButton("Remove a record");
         buttExport = new JButton("Export to CSV file");
         
-        radbuttAscend.setText("Ascending");
-        radbuttDescend.setText("Descending");
+        buttgrpRadButt = new ButtonGroup();
+        radbuttAscend = new JRadioButton("Ascending");
+        radbuttDescend = new JRadioButton("Descending");
         
         buttgrpRadButt.add(radbuttAscend);
         buttgrpRadButt.add(radbuttDescend);
