@@ -9,8 +9,12 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
 import java.io.*;
+import java.util.*;
     
 public class ListOfRecords implements ActionListener{
+    
+    AddRecord addRecord;
+    RemoveRecord removeRecord;
     
     private JFrame frame;
     private JPanel panText, panButton, panSort, panClickables;
@@ -20,19 +24,26 @@ public class ListOfRecords implements ActionListener{
     private JButton buttAddRecord, buttRemRecord, buttExport;
     
     private JRadioButton radbuttAscend, radbuttDescend;
+    JComboBox comboxSort;
     
+    String[] sortOptions = {"Name", "Birthday", "Age"};
     
-        String[] sortOptions = {"Name", "Birthday", "Age"};
-        JComboBox comboxSort;
+    Person[] names;
             
     
    public ListOfRecords() {
    
-   frame = new JFrame("List of Records");
+        frame = new JFrame("List of Records");
         
-        taNames = new JTextArea(20, 69);
-        taBirthdays = new JTextArea(20, 69);
-        taAge = new JTextArea(20, 69);
+        panText = new JPanel();
+        panButton = new JPanel(); 
+        panSort = new JPanel();
+        panClickables = new JPanel();;
+        
+        
+        taNames = new JTextArea(20, 20);
+        taBirthdays = new JTextArea(20, 20);
+        taAge = new JTextArea(20, 20);
         
         buttAddRecord = new JButton("Add a record");
         buttRemRecord = new JButton("Remove a record");
@@ -48,14 +59,17 @@ public class ListOfRecords implements ActionListener{
         comboxSort = new JComboBox(sortOptions);
         comboxSort.setSelectedIndex(0);
         
+        names = new Person[0];
+        
         
    } 
    
    public void launchFrame() {
         
-       
+        panText.setLayout(new GridLayout(1, 3));
         panSort.setLayout(new GridLayout(1, 3));
-       //puts the buttons into the button panel.
+        panClickables.setLayout(new GridLayout(2, 1));
+        
         panButton.add(buttAddRecord);
         panButton.add(buttRemRecord);
         panButton.add(buttExport);
@@ -64,7 +78,8 @@ public class ListOfRecords implements ActionListener{
         panSort.add(radbuttAscend);
         panSort.add(radbuttDescend);
         
-        panClickables.add(panSort, panButton);
+        panClickables.add(panSort);
+        panClickables.add(panButton);
         
         panText.add(taNames);
         panText.add(taBirthdays);
@@ -89,7 +104,98 @@ public class ListOfRecords implements ActionListener{
    
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
+        
+        Object source = actionEvent.getSource();
+        
+        if (source == buttAddRecord) {
+            addRecord = new AddRecord();
+            
+            //for loop, creates a new array length+1 of names[] and copies all items + the new person
+            
+            refresh();
+            
+        }
+        
+        if (source == buttRemRecord) {
+            removeRecord = new RemoveRecord();
+            
+           
+            //for loop, creates a new array length-1 of names[] and copies all items not in index 0
+            
+            refresh();
+            
+        }
+        
+        if (source == buttExport) {
+            
+            export();
+            
+        }
+        
+    
+    }
+    
+    private void refresh() {
+        
+        //for loop, inputs all Person name\n, birthday\n and ageCalculator() to respective JTextAreas, but first clears the text
+                
+    }
+    
+    private void export() {
+    //exports to CSV
+    
+    
+    }
+    
+    private void ageCalculator(int birth_date, int birth_month, int birth_year) {
+    
+        
     
     }
 
+}
+
+class AddRecord implements ActionListener{
+
+    AddRecord() {
+    
+    
+    }
+    
+    void launchFrame() {
+    
+    }
+    
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
+    
+    }
+    
+}
+
+class RemoveRecord implements ActionListener{
+
+    RemoveRecord() {
+    
+    
+    }
+    
+    void launchFrame() {
+    
+    }
+    
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
+    
+    }
+    
+}
+
+class Person {
+
+    Person(String name, Date birthday) {
+    
+    
+    }
+    
 }
