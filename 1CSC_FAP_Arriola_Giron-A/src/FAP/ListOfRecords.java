@@ -26,9 +26,9 @@ public class ListOfRecords implements ActionListener{
     private JRadioButton radbuttAscend, radbuttDescend;
     JComboBox comboxSort;
     
-    String[] sortOptions = {"Name", "Birthday", "Age"};
+    final String[] sortOptions = {"Name", "Birthday", "Age"};
     
-    Person[] names;
+    static Person[] names;
             
     
    public ListOfRecords() {
@@ -38,7 +38,7 @@ public class ListOfRecords implements ActionListener{
         panText = new JPanel();
         panButton = new JPanel(); 
         panSort = new JPanel();
-        panClickables = new JPanel();;
+        panClickables = new JPanel();
         
         
         taNames = new JTextArea(20, 20);
@@ -105,28 +105,27 @@ public class ListOfRecords implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         
-        Object source = actionEvent.getSource();
+        Object sauce = actionEvent.getSource();
         
-        if (source == buttAddRecord) {
+        if (sauce == buttAddRecord) {
             addRecord = new AddRecord();
-            
-            //for loop, creates a new array length+1 of names[] and copies all items + the new person
+            addRecord.launchFrame();
             
             refresh();
             
         }
         
-        if (source == buttRemRecord) {
+        if (sauce == buttRemRecord) {
             removeRecord = new RemoveRecord();
             
            
-            //for loop, creates a new array length-1 of names[] and copies all items not in index 0
+            ////for loop, creates a new array length-1 of names[] and copies all items not in index 0
             
             refresh();
             
         }
         
-        if (source == buttExport) {
+        if (sauce == buttExport) {
             
             export();
             
@@ -135,14 +134,21 @@ public class ListOfRecords implements ActionListener{
     
     }
     
+    protected void addRecord(String name, Date birthday) {
+        
+        ////for loop, creates a new array length+1 of names[] and copies all items + the new person
+        
+    
+    }
+    
     private void refresh() {
         
-        //for loop, inputs all Person name\n, birthday\n and ageCalculator() to respective JTextAreas, but first clears the text
+        ////for loop, inputs all Person name\n, birthday\n and ageCalculator() to respective JTextAreas, but first clears the text
                 
     }
     
     private void export() {
-    //exports to CSV
+    ////export to CSV
     
     
     }
@@ -157,17 +163,107 @@ public class ListOfRecords implements ActionListener{
 
 class AddRecord implements ActionListener{
 
+    ListOfRecords listOfRecords;
+    
+    private JFrame frame;
+    private JPanel panName, panBirthday, panButton;
+    private JLabel labName, labBirthday;
+    private JTextArea taName;
+    private JComboBox comboxMonth, comboxDay, comboxYear;
+    private JButton buttSaveBack, buttSaveAnother, buttBack;
+    
+    private String name;
+    
+    private Date birthday;
+    
+    final String[] mm = {"January", "February", "March", "April", "May", "June", "July", 
+                   "August", "September", "October", "November", "December"};
+    final int[] dd = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 
+                20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31};
+    int[] yyyy;
+            
+    
     AddRecord() {
+        
+     ////For loop, sets yyyy into array of years, 1900 to current year;
     
-    
+     frame = new JFrame("List of Records");
+        
+     panName = new JPanel();
+     panBirthday = new JPanel(); 
+     panButton = new JPanel();
+     
+     labName = new JLabel("Name: ");
+     labBirthday = new JLabel("Birthday");
+     
+     taName = new JTextArea(1, 40);
+     
+     comboxMonth = new JComboBox();
+     comboxDay = new JComboBox();
+     comboxYear = new JComboBox();
+     
+     buttSaveBack = new JButton("Save and Go Back");
+     buttSaveAnother = new JButton("Save and Add Another");
+     buttBack = new JButton("Back");
+       
     }
     
     void launchFrame() {
-    
+        
+        frame.setLayout(new GridLayout(3,1));
+        
+        panName.setLayout(new GridLayout(1, 2));
+        panBirthday.setLayout(new GridLayout(1, 4));
+        panButton.setLayout(new GridLayout(1,3));
+        
+        panName.add(labName);
+        panName.add(taName);
+        
+        panBirthday.add(labBirthday);
+        panBirthday.add(comboxMonth);
+        panBirthday.add(comboxDay);
+        panBirthday.add(comboxYear);
+        
+        panButton.add(buttSaveBack);
+        panButton.add(buttSaveAnother);
+        panButton.add(buttBack);
+        
+        frame.add(panName);
+        frame.add(panBirthday);
+        frame.add(panButton);
+        
+        frame.pack();
+        frame.setVisible(true);
+        
+        buttSaveBack.addActionListener(this);
+        buttSaveAnother.addActionListener(this);
+        buttBack.addActionListener(this);
+        
     }
     
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
+        Object sauce = actionEvent.getSource();
+        
+        if (sauce == buttSaveBack) {
+        
+            listOfRecords.addRecord(name, birthday);
+            
+            ////close
+        
+        }
+        
+        if (sauce == buttSaveAnother) {
+            
+            listOfRecords.addRecord(name, birthday);
+            
+        }
+        
+        if (sauce == buttBack) {
+            
+            ////close
+        
+        }
     
     }
     
