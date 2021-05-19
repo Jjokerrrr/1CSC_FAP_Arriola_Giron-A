@@ -17,7 +17,7 @@ public class ListOfRecords implements ActionListener{
     RemoveRecord removeRecord;
     
     private JFrame frame;
-    private JPanel panText, panButton, panSort, panClickables;
+    private JPanel panText, panButton, panSort, panRadioButton, panClickables;
     ButtonGroup buttgrpRadButt;
     
     private JTextArea taNames, taBirthdays, taAge;
@@ -38,6 +38,7 @@ public class ListOfRecords implements ActionListener{
         panText = new JPanel();
         panButton = new JPanel(); 
         panSort = new JPanel();
+        panRadioButton = new JPanel();
         panClickables = new JPanel();
         
         
@@ -67,16 +68,19 @@ public class ListOfRecords implements ActionListener{
    public void launchFrame() {
         
         panText.setLayout(new GridLayout(1, 3));
-        panSort.setLayout(new GridLayout(1, 3));
+        panSort.setLayout(new GridLayout(1, 2));
+        panRadioButton.setLayout(new GridLayout(2, 1));
         panClickables.setLayout(new GridLayout(2, 1));
         
         panButton.add(buttAddRecord);
         panButton.add(buttRemRecord);
         panButton.add(buttExport);
         
-        panSort.add(comboxSort, "Left");
-        panSort.add(radbuttAscend);
-        panSort.add(radbuttDescend);
+        panRadioButton.add(radbuttAscend);
+        panRadioButton.add(radbuttDescend);
+        
+        panSort.add(comboxSort);
+        panSort.add(panRadioButton);
         
         panClickables.add(panSort);
         panClickables.add(panButton);
@@ -302,8 +306,8 @@ class RemoveRecord implements ActionListener{
      
      tfName = new JTextField(40);
      
-     buttRemoveBack = new JButton("Save and Go Back");
-     buttRemoveAnother = new JButton("Save and Add Another");
+     buttRemoveBack = new JButton("Remove and Go Back");
+     buttRemoveAnother = new JButton("Save and Remove");
      buttBack = new JButton("Back");
        
     }
