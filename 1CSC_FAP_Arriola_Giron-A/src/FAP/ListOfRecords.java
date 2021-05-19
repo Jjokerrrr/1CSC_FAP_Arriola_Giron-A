@@ -117,7 +117,7 @@ public class ListOfRecords implements ActionListener{
         
         if (sauce == buttRemRecord) {
             removeRecord = new RemoveRecord();
-            
+            removeRecord.launchFrame();
            
             ////for loop, creates a new array length-1 of names[] and copies all items not in index 0
             
@@ -137,6 +137,13 @@ public class ListOfRecords implements ActionListener{
     protected void addRecord(String name, Date birthday) {
         
         ////for loop, creates a new array length+1 of names[] and copies all items + the new person
+        
+    
+    }
+    
+    protected void removeRecord(String name) {
+        
+        ////for loop, creates a new array length-1 of names[] and copies all items - the person removed
         
     
     }
@@ -168,7 +175,7 @@ class AddRecord implements ActionListener{
     private JFrame frame;
     private JPanel panName, panBirthday, panButton;
     private JLabel labName, labBirthday;
-    private JTextArea taName;
+    private JTextField tfName;
     private JComboBox comboxMonth, comboxDay, comboxYear;
     private JButton buttSaveBack, buttSaveAnother, buttBack;
     
@@ -187,7 +194,7 @@ class AddRecord implements ActionListener{
         
      ////For loop, sets yyyy into array of years, 1900 to current year;
     
-     frame = new JFrame("List of Records");
+     frame = new JFrame("Add Record");
         
      panName = new JPanel();
      panBirthday = new JPanel(); 
@@ -196,7 +203,7 @@ class AddRecord implements ActionListener{
      labName = new JLabel("Name: ");
      labBirthday = new JLabel("Birthday");
      
-     taName = new JTextArea(1, 40);
+     tfName = new JTextField(40);
      
      comboxMonth = new JComboBox();
      comboxDay = new JComboBox();
@@ -217,7 +224,7 @@ class AddRecord implements ActionListener{
         panButton.setLayout(new GridLayout(1,3));
         
         panName.add(labName);
-        panName.add(taName);
+        panName.add(tfName);
         
         panBirthday.add(labBirthday);
         panBirthday.add(comboxMonth);
@@ -271,19 +278,88 @@ class AddRecord implements ActionListener{
 
 class RemoveRecord implements ActionListener{
 
+    ListOfRecords listOfRecords;
+    
+    private JFrame frame;
+    private JPanel panName, panButton;
+    private JLabel labName;
+    private JTextField tfName;
+    private JButton buttRemoveBack, buttRemoveAnother, buttBack;
+    
+    private String name;
+            
     RemoveRecord() {
+        
+     ////For loop, sets yyyy into array of years, 1900 to current year;
     
-    
+     frame = new JFrame("Remove Record");
+        
+     panName = new JPanel();
+
+     panButton = new JPanel();
+     
+     labName = new JLabel("Name: ");
+     
+     tfName = new JTextField(40);
+     
+     buttRemoveBack = new JButton("Save and Go Back");
+     buttRemoveAnother = new JButton("Save and Add Another");
+     buttBack = new JButton("Back");
+       
     }
     
     void launchFrame() {
-    
+        
+        frame.setLayout(new GridLayout(2,1));
+        
+        panName.setLayout(new GridLayout(1, 2));
+        panButton.setLayout(new GridLayout(1,3));
+        
+        panName.add(labName);
+        panName.add(tfName);
+        
+        panButton.add(buttRemoveBack);
+        panButton.add(buttRemoveAnother);
+        panButton.add(buttBack);
+        
+        frame.add(panName);
+        frame.add(panButton);
+        
+        frame.pack();
+        frame.setVisible(true);
+        
+        buttRemoveBack.addActionListener(this);
+        buttRemoveAnother.addActionListener(this);
+        buttBack.addActionListener(this);
+        
     }
     
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
+        Object sauce = actionEvent.getSource();
+        
+        if (sauce == buttRemoveBack) {
+        
+            listOfRecords.removeRecord(name);
+            
+            ////close
+        
+        }
+        
+        if (sauce == buttRemoveAnother) {
+            
+            listOfRecords.removeRecord(name);
+            
+        }
+        
+        if (sauce == buttBack) {
+            
+            ////close
+        
+        }
     
     }
+    
     
 }
 
