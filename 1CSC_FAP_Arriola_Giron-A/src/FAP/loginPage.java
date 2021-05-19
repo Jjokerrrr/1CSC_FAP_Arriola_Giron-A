@@ -72,8 +72,6 @@ public class loginPage implements ActionListener{
     public static void main(String[] args) { 
             loginPage login = new loginPage();
             login.launchLogin();
-            ListOfRecords records = new ListOfRecords();
-            records.launchFrame();
     }
     
     @Override
@@ -157,5 +155,3 @@ public class loginPage implements ActionListener{
         return isAuthenticated;
     }
 }
-
-
