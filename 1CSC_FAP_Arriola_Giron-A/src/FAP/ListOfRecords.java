@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
 import java.io.*;
+import java.time.LocalDate;
 import java.util.*;
     
 public class ListOfRecords implements ActionListener{
@@ -20,7 +21,8 @@ public class ListOfRecords implements ActionListener{
     private JPanel panText, panButton, panSort, panRadioButton, panClickables;
     ButtonGroup buttgrpRadButt;
     
-    private JTextArea taNames, taBirthdays, taAge;
+    private JTextArea taInfo;
+    private JScrollPane scrl;
     private JButton buttAddRecord, buttRemRecord, buttExport;
     
     private JRadioButton radbuttAscend, radbuttDescend;
@@ -28,12 +30,13 @@ public class ListOfRecords implements ActionListener{
     
     final String[] sortOptions = {"Name", "Birthday", "Age"};
     
-    static Person[] names;
+    ArrayList<Person> names;
             
     
    public ListOfRecords() {
    
         frame = new JFrame("List of Records");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         panText = new JPanel();
         panButton = new JPanel(); 
@@ -42,9 +45,11 @@ public class ListOfRecords implements ActionListener{
         panClickables = new JPanel();
         
         
-        taNames = new JTextArea(20, 20);
-        taBirthdays = new JTextArea(20, 20);
-        taAge = new JTextArea(20, 20);
+        taInfo = new JTextArea(20, 60);
+	scrl = new JScrollPane(taInfo);
+        
+        scrl.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);  
+        scrl.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);  
         
         buttAddRecord = new JButton("Add a record");
         buttRemRecord = new JButton("Remove a record");
@@ -60,7 +65,7 @@ public class ListOfRecords implements ActionListener{
         comboxSort = new JComboBox(sortOptions);
         comboxSort.setSelectedIndex(0);
         
-        names = new Person[0];
+        names = new ArrayList<Person>();
         
         
    } 
@@ -85,9 +90,8 @@ public class ListOfRecords implements ActionListener{
         panClickables.add(panSort);
         panClickables.add(panButton);
         
-        panText.add(taNames);
-        panText.add(taBirthdays);
-        panText.add(taAge);
+        panText.add(scrl, BorderLayout.CENTER);
+        
         
         
        //adds the text area and button panel to the window.
@@ -138,7 +142,7 @@ public class ListOfRecords implements ActionListener{
     
     }
     
-    protected void addRecord(String name, Date birthday) {
+    protected void addRecord(String name, LocalDate birthday) {
         
         ////for loop, creates a new array length+1 of names[] and copies all items + the new person
         
@@ -164,11 +168,7 @@ public class ListOfRecords implements ActionListener{
     
     }
     
-    private void ageCalculator(int birth_date, int birth_month, int birth_year) {
     
-        
-    
-    }
 
 }
 
@@ -185,12 +185,12 @@ class AddRecord implements ActionListener{
     
     private String name;
     
-    private Date birthday;
+    private LocalDate birthday;
     
     final String[] mm = {"January", "February", "March", "April", "May", "June", "July", 
                    "August", "September", "October", "November", "December"};
-    final int[] dd = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 
-                20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31};
+    final String[] dd = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19",
+                "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"};
     int[] yyyy;
             
     
@@ -368,10 +368,40 @@ class RemoveRecord implements ActionListener{
 }
 
 class Person {
-
-    Person(String name, Date birthday) {
-    
-    
+    private String name;
+    private LocalDate birthday;
+    private int age;
+    Person(String name, LocalDate birthday) {
+        setName(name);
+        setBirthday(birthday);
     }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public String getName() {
+        return(name);
+    }
+    
+    
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
+        
+        //put here instead of constructor so that it runs every time the birthday is changed.
+        ageCalculator(birthday);
+    }
+    
+    public LocalDate getBirthday() {
+    
+        return(birthday);
+    }
+    
+    private void ageCalculator(LocalDate birthday) {
+        ////calculator code
+        this.age = 0; //replace when code is done
+    }
+    
+    
     
 }
