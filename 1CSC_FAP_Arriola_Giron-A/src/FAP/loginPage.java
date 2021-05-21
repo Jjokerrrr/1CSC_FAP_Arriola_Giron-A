@@ -72,8 +72,7 @@ public class loginPage implements ActionListener{
     public static void main(String[] args) { 
             loginPage login = new loginPage();
             login.launchLogin();
-            ListOfRecords records = new ListOfRecords();
-            records.launchFrame();
+            
     }
     
     @Override
@@ -93,6 +92,8 @@ public class loginPage implements ActionListener{
                 isAuthenticated = true;
                 JOptionPane.showMessageDialog(null, "Login Successful");
                 this.loginPage.dispose();
+                ListOfRecords records = new ListOfRecords();
+                records.launchFrame();
             }
             
             else if (!authentication && attempt < 3)
